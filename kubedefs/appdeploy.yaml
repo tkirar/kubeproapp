@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind : Deployment
+metadata:
+  name: vproapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vproapp
+
+  template:
+    metadata:
+      labels:
+        app: vproapp
+    spec:
+      containers: 
+        - name: vproapp
+          image: tkirar/vprofile-project-vproapp
+          imagePullPolicy: Always
+          ports:
+            - name: vproapp-port
+              containerPort: 8080
+              protocol: TCP
+
+      initContainers:
+        - name: init-mydb
+          image: busybox:latest
+          command: ['sh', '-c', 'until nc -z vprodb 3306; do echo waiting for mysql on vprodb:3306; sleep 5; done; echo mysql is available']
+        - name: init-mq
+          image: busybox:latest
+          command: ['sh', '-c', 'until nc -z vpromq01 5672; do echo waiting for rabbitmq on vpromq01:5672; sleep 5; done; echo rabbitmq is available']
+        - name: init-memecache
+          image: busybox:latest
+          command: ['sh', '-c', 'until nc -z vprocache01 11211; do echo waiting for memcache on vprocache01:11211; sleep 5; done; echo memcache is available']
+            
