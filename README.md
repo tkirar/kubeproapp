@@ -1,4 +1,4 @@
-# Kubernetes‑based 3‑tier application Deployment with Ingress & DNS
+# Kubernetes based 3‑tier application Deployment with Ingress & DNS
 
 Architecture diagram of my Kubernetes‑based 3‑tier application. It shows how ingress traffic from AWS Load Balancer flows into NGINX Ingress, then routes to Tomcat, RabbitMQ, Memcache, and MySQL with persistent storage on Amazon EBS. This setup highlights scalability, high availability, and secure configuration with Kubernetes Secrets.”
 <img width="953" height="639" alt="image" src="https://github.com/user-attachments/assets/f5072506-4fd3-43a9-b436-57574309ab93" />
